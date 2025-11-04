@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Resume Builder</title>
+    <link rel="stylesheet" href="./dist/output.css" />
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+      <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">Resume Builder</h1>
+        <p class="text-gray-600 mt-2">
+          Create your professional resume in minutes
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- LEFT COLUMN: Form -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-semibold mb-4">Your Information</h2>
+
+          <form id="resume-form">
+            <!-- Personal Details -->
+            <div class="mb-6">
+              <h3 class="text-lg font-medium mb-3">Personal Details</h3>
+              <input
+                type="text"
+                id="fullName"
+                placeholder="Full Name"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Phone"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <input
+                type="text"
+                id="location"
+                placeholder="Street Address, City, State, Zip"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <input
+                type="url"
+                id="linkedin"
+                placeholder="LinkedIn URL (optional)"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
+            <!-- Education -->
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-lg font-medium">Education</h3>
+                <button
+                  type="button"
+                  id="add-education"
+                  class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+                >
+                  + Add
+                </button>
+              </div>
+              <div id="education-container">
+                <p class="text-gray-400 text-sm text-center py-4">
+                  No education added yet
+                </p>
+              </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-lg font-medium">Work Experience</h3>
+                <button
+                  type="button"
+                  id="add-experience"
+                  class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+                >
+                  + Add
+                </button>
+              </div>
+              <div id="experience-container">
+                <p class="text-gray-400 text-sm text-center py-4">
+                  No experience added yet
+                </p>
+              </div>
+            </div>
+
+            <!-- Leadership & Community -->
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-lg font-medium">Leadership & Community</h3>
+                <button
+                  type="button"
+                  id="add-leadership"
+                  class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+                >
+                  + Add
+                </button>
+              </div>
+              <div id="leadership-container">
+                <p class="text-gray-400 text-sm text-center py-4">
+                  No leadership activities added yet
+                </p>
+              </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="mb-6">
+              <h3 class="text-lg font-medium mb-3">Skills & Certifications</h3>
+              <input
+                type="text"
+                id="skill-input"
+                placeholder="Type a skill and press Enter"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <div id="skills-container" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Languages -->
+            <div class="mb-6">
+              <h3 class="text-lg font-medium mb-3">Languages</h3>
+              <input
+                type="text"
+                id="language-input"
+                placeholder="Type a language and press Enter"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <div id="languages-container" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Interests -->
+            <div class="mb-6">
+              <h3 class="text-lg font-medium mb-3">Interests</h3>
+              <input
+                type="text"
+                id="interest-input"
+                placeholder="Type an interest and press Enter"
+                class="w-full p-2 border rounded mb-3"
+              />
+              <div id="interests-container" class="flex flex-wrap gap-2"></div>
+            </div>
+            <button
+              type="button"
+              id="clear-data"
+              class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 w-full mt-4"
+            >
+              🗑️ Clear All Data
+            </button>
+          </form>
+        </section>
+
+        <!-- RIGHT COLUMN: Preview -->
+        <section
+          class="bg-white p-6 rounded-lg shadow-md lg:sticky lg:top-4 h-fit"
+        >
+          <h2 class="text-2xl font-semibold mb-4">Live Preview</h2>
+          <div
+            id="resume-preview"
+            class="border-2 border-gray-200 p-8 rounded bg-white min-h-[600px] font-serif"
+          >
+            <div id="preview-content">
+              <p class="text-gray-400 text-center py-8 font-sans">
+                Your resume will appear here...
+              </p>
+            </div>
+          </div>
+
+          <!-- Export Buttons -->
+          <div class="mt-4 space-y-3">
+            <div class="flex gap-3">
+              <button
+                id="export-pdf"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex-1"
+              >
+                📄 Export PDF
+              </button>
+              <button
+                id="export-json"
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 flex-1"
+              >
+                💾 Save JSON
+              </button>
+            </div>
+            <label
+              for="import-json"
+              class="block w-full bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 text-center cursor-pointer"
+            >
+              📂 Import JSON
+              <input
+                type="file"
+                id="import-json"
+                accept=".json"
+                class="hidden"
+              />
+            </label>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="./src/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import a serif font for the resume */
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap");
+
+/* Print styles for PDF export */
+@media print {
+  @page {
+    margin: 0.5in;
+    size: letter portrait;
+  }
+
+  body {
+    background: white;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-preview,
+  #resume-preview * {
+    visibility: visible;
+  }
+
+  #resume-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  button,
+  #form-section,
+  header,
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Resume preview styling */
+#resume-preview {
+  font-family: "Crimson Text", serif;
+  line-height: 1.4;
+}
+
+/* Entry items (experience/education) */
+.entry-item {
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  background: white;
+}
+
+.entry-item:hover {
+  border-color: #3b82f6;
+}
+
+/* Drag and drop styles */
+.draggable {
+  cursor: move;
+  transition: all 0.2s;
+}
+
+.draggable:hover {
+  background-color: #f9fafb;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+/* Focus styles for accessibility */
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Skill/Language/Interest tags */
+.skill-tag,
+.language-tag,
+.interest-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.5rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.skill-tag button:hover,
+.language-tag button:hover,
+.interest-tag button:hover {
+  color: #1e3a8a;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #1f2937;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  font-family: "Inter", sans-serif;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+/* Resume section headings */
+.resume-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.25rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Bullet points in resume */
+.resume-bullet-list {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.resume-bullet-list li {
+  margin-bottom: 0.125rem;
+}
