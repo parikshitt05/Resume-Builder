@@ -681,26 +681,42 @@ function updatePreview() {
 
   // Header with LinkedIn and GitHub
   const contactLinks = [];
-  if (personalInfo.linkedin) contactLinks.push(personalInfo.linkedin);
-  if (personalInfo.github) contactLinks.push(personalInfo.github);
+
+  if (personalInfo.linkedin) {
+    // Extract the display text (e.g., "linkedin.com/in/username")
+    const linkedinDisplay = personalInfo.linkedin
+      .replace("https://", "")
+      .replace("http://", "")
+      .replace("www.", "");
+    contactLinks.push(
+      `<a href="${personalInfo.linkedin}" target="_blank" class="text-blue-600 hover:underline">Linkedin</a>`
+    );
+  }
+
+  if (personalInfo.github) {
+    // Extract the display text (e.g., "github.com/username")
+    const githubDisplay = personalInfo.github
+      .replace("https://", "")
+      .replace("http://", "")
+      .replace("www.", "");
+    contactLinks.push(
+      `<a href="${personalInfo.github}" target="_blank" class="text-blue-600 hover:underline">Github</a>`
+    );
+  }
 
   html += `
-        <div class="text-center border-b border-black pb-2 mb-3">
-            <h1 class="text-2xl font-bold mb-1">${
-              personalInfo.fullName || "John Doe"
-            }</h1>
-            <p class="text-xs">
-                ${personalInfo.location || "City, State"} • 
-                ${personalInfo.email || "email@example.com"} • 
-                ${personalInfo.phone || "Phone Number"}
-                ${
-                  contactLinks.length > 0
-                    ? " • " + contactLinks.join(" • ")
-                    : ""
-                }
-            </p>
-        </div>
-    `;
+    <div class="text-center border-b border-black pb-2 mb-3">
+        <h1 class="text-2xl font-bold mb-1">${
+          personalInfo.fullName || "John Doe"
+        }</h1>
+        <p class="text-xs">
+            ${personalInfo.location || "City, State"} • 
+            ${personalInfo.email || "email@example.com"} • 
+            ${personalInfo.phone || "Phone Number"}
+            ${contactLinks.length > 0 ? " • " + contactLinks.join(" • ") : ""}
+        </p>
+    </div>
+`;
 
   // Education
   if (education.length > 0) {
@@ -799,7 +815,11 @@ function updatePreview() {
                         }
                         ${
                           proj.link
-                            ? `<div class="text-xs text-blue-600">${proj.link}</div>`
+                            ? `<div class="text-xs"><a href="${
+                                proj.link
+                              }" class="text-blue-600 hover:underline" target="_blank" rel="noopener">${proj.link
+                                .replace("https://", "")
+                                .replace("http://", "")}</a></div>`
                             : ""
                         }
                         ${
