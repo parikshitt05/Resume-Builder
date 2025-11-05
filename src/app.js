@@ -10,10 +10,12 @@ let resumeData = {
     phone: "",
     location: "",
     linkedin: "",
+    github: "",
   },
   summary: "",
   education: [],
   experiences: [],
+  projects: [], // NEW
   leadership: [],
   skills: [],
   languages: [],
@@ -31,13 +33,18 @@ const elements = {
   phone: $("phone"),
   location: $("location"),
   linkedin: $("linkedin"),
+  github: $("github"),
   summary: $("summary"),
   summaryCount: $("summary-count"),
   skillInput: $("skill-input"),
   languageInput: $("language-input"),
   interestInput: $("interest-input"),
+  addSkillBtn: $("add-skill-btn"),
+  addLanguageBtn: $("add-language-btn"),
+  addInterestBtn: $("add-interest-btn"),
   educationContainer: $("education-container"),
   experienceContainer: $("experience-container"),
+  projectsContainer: $("projects-container"), // NEW
   leadershipContainer: $("leadership-container"),
   skillsContainer: $("skills-container"),
   languagesContainer: $("languages-container"),
@@ -45,10 +52,12 @@ const elements = {
   previewContent: $("preview-content"),
   addEducation: $("add-education"),
   addExperience: $("add-experience"),
+  addProject: $("add-project"), // NEW
   addLeadership: $("add-leadership"),
   exportPdf: $("export-pdf"),
   exportJson: $("export-json"),
   importJson: $("import-json"),
+  clearData: $("clear-data"),
   toast: $("toast"),
 };
 
@@ -96,7 +105,6 @@ function loadFromLocalStorage() {
     if (saved) {
       const loadedData = JSON.parse(saved);
 
-      // Merge with default structure to ensure all properties exist
       resumeData = {
         personalInfo: {
           fullName: "",
@@ -104,6 +112,7 @@ function loadFromLocalStorage() {
           phone: "",
           location: "",
           linkedin: "",
+          github: "",
           ...loadedData.personalInfo,
         },
         summary: loadedData.summary || "",
@@ -113,6 +122,7 @@ function loadFromLocalStorage() {
         experiences: Array.isArray(loadedData.experiences)
           ? loadedData.experiences
           : [],
+        projects: Array.isArray(loadedData.projects) ? loadedData.projects : [],
         leadership: Array.isArray(loadedData.leadership)
           ? loadedData.leadership
           : [],
@@ -130,7 +140,6 @@ function loadFromLocalStorage() {
     }
   } catch (error) {
     console.error("Error loading from localStorage:", error);
-    // Reset to default if corrupted
     localStorage.removeItem("resumeData");
   }
   updatePreview();
@@ -151,11 +160,14 @@ function populateForm() {
     elements.location.value = resumeData.personalInfo.location || "";
   if (elements.linkedin)
     elements.linkedin.value = resumeData.personalInfo.linkedin || "";
+  if (elements.github)
+    elements.github.value = resumeData.personalInfo.github || "";
   if (elements.summary) elements.summary.value = resumeData.summary || "";
   updateCharacterCount();
 
   resumeData.education.forEach((edu) => addEducationEntry(edu));
   resumeData.experiences.forEach((exp) => addExperienceEntry(exp));
+  resumeData.projects.forEach((proj) => addProjectEntry(proj));
   resumeData.leadership.forEach((lead) => addLeadershipEntry(lead));
   resumeData.skills.forEach((skill) => addTag(skill, "skills"));
   resumeData.languages.forEach((lang) => addTag(lang, "languages"));
@@ -358,6 +370,98 @@ function addExperienceEntry(data = {}) {
 }
 
 // ============================================
+// PROJECTS MANAGEMENT (NEW)
+// ============================================
+
+function addProjectEntry(data = {}) {
+  const id = data.id || generateId();
+  const container = elements.projectsContainer;
+  if (!container) return;
+
+  const emptyState = container.querySelector("p");
+  if (emptyState) emptyState.remove();
+
+  const entry = document.createElement("div");
+  entry.className = "entry-item draggable";
+  entry.dataset.id = id;
+  entry.draggable = true;
+  entry.innerHTML = `
+        <div class="flex justify-between mb-2">
+            <span class="text-sm text-gray-600 cursor-move">☰ Drag to reorder</span>
+            <button type="button" class="text-red-600 text-sm hover:text-red-800 remove-btn">Remove</button>
+        </div>
+        <input type="text" placeholder="Project Name" class="w-full p-2 border rounded mb-2 proj-name" value="${
+          data.name || ""
+        }">
+        <input type="text" placeholder="Technologies Used (e.g., React, Node.js)" class="w-full p-2 border rounded mb-2 proj-tech" value="${
+          data.technologies || ""
+        }">
+        <div class="grid grid-cols-2 gap-2 mb-2">
+            <input type="url" placeholder="Project Link/GitHub (optional)" class="p-2 border rounded proj-link" value="${
+              data.link || ""
+            }">
+            <input type="text" placeholder="Date" class="p-2 border rounded proj-date" value="${
+              data.date || ""
+            }">
+        </div>
+        <textarea placeholder="Project description and key features (one per line)" rows="3" class="w-full p-2 border rounded resize-none proj-desc">${
+          data.description || ""
+        }</textarea>
+    `;
+
+  container.appendChild(entry);
+
+  entry.querySelector(".remove-btn").addEventListener("click", () => {
+    resumeData.projects = resumeData.projects.filter((e) => e.id !== id);
+    entry.remove();
+    if (resumeData.projects.length === 0) {
+      container.innerHTML =
+        '<p class="text-gray-400 text-sm text-center py-4">No projects added yet</p>';
+    }
+    updatePreview();
+    saveToLocalStorage();
+  });
+
+  const inputs = {
+    name: entry.querySelector(".proj-name"),
+    technologies: entry.querySelector(".proj-tech"),
+    link: entry.querySelector(".proj-link"),
+    date: entry.querySelector(".proj-date"),
+    description: entry.querySelector(".proj-desc"),
+  };
+
+  Object.keys(inputs).forEach((key) => {
+    inputs[key].addEventListener("input", (e) => {
+      const index = resumeData.projects.findIndex((proj) => proj.id === id);
+      if (index !== -1) {
+        resumeData.projects[index][key] = e.target.value;
+      } else {
+        const newProj = { id };
+        newProj[key] = e.target.value;
+        resumeData.projects.push(newProj);
+      }
+      updatePreview();
+      debouncedSave();
+    });
+  });
+
+  setupDragAndDrop(entry, "projects");
+
+  if (!data.id) {
+    resumeData.projects.push({
+      id,
+      name: "",
+      technologies: "",
+      link: "",
+      date: "",
+      description: "",
+    });
+  }
+
+  updatePreview();
+}
+
+// ============================================
 // LEADERSHIP MANAGEMENT
 // ============================================
 
@@ -457,7 +561,7 @@ function addTag(text, type) {
   if (!text || text.trim() === "") return;
 
   const item = text.trim();
-  const arrayName = type; // 'skills', 'languages', 'interests'
+  const arrayName = type;
   const containerName = `${type}Container`;
   const className =
     type === "skills"
@@ -538,6 +642,9 @@ function updateArrayOrder(type) {
   } else if (type === "experiences") {
     container = elements.experienceContainer;
     arrayName = "experiences";
+  } else if (type === "projects") {
+    container = elements.projectsContainer;
+    arrayName = "projects";
   } else if (type === "leadership") {
     container = elements.leadershipContainer;
     arrayName = "leadership";
@@ -559,11 +666,12 @@ function updateArrayOrder(type) {
 function updatePreview() {
   if (!elements.previewContent) return;
 
-  // Ensure all arrays exist (safety check)
+  // Ensure all arrays exist
   const { personalInfo = {} } = resumeData;
   const summary = resumeData.summary || "";
   const education = resumeData.education || [];
   const experiences = resumeData.experiences || [];
+  const projects = resumeData.projects || [];
   const leadership = resumeData.leadership || [];
   const skills = resumeData.skills || [];
   const languages = resumeData.languages || [];
@@ -571,17 +679,26 @@ function updatePreview() {
 
   let html = '<div class="max-w-3xl mx-auto">';
 
-  // Header
+  // Header with LinkedIn and GitHub
+  const contactLinks = [];
+  if (personalInfo.linkedin) contactLinks.push(personalInfo.linkedin);
+  if (personalInfo.github) contactLinks.push(personalInfo.github);
+
   html += `
         <div class="text-center border-b border-black pb-2 mb-3">
             <h1 class="text-2xl font-bold mb-1">${
               personalInfo.fullName || "John Doe"
             }</h1>
-            <p class="text-xs">${
-              personalInfo.location || "Street Address, City, State, Zip Code"
-            } • ${personalInfo.email || "Email Address"} • ${
-    personalInfo.phone || "Phone Number"
-  }</p>
+            <p class="text-xs">
+                ${personalInfo.location || "City, State"} • 
+                ${personalInfo.email || "email@example.com"} • 
+                ${personalInfo.phone || "Phone Number"}
+                ${
+                  contactLinks.length > 0
+                    ? " • " + contactLinks.join(" • ")
+                    : ""
+                }
+            </p>
         </div>
     `;
 
@@ -649,6 +766,45 @@ function updatePreview() {
                         ${
                           exp.description
                             ? `<div class="text-xs mt-1">${exp.description
+                                .split("\n")
+                                .filter((line) => line.trim())
+                                .map((line) => `<div>• ${line.trim()}</div>`)
+                                .join("")}</div>`
+                            : ""
+                        }
+                    </div>
+                `;
+      }
+    });
+    html += "</div>";
+  }
+
+  // Projects (NEW)
+  if (projects.length > 0) {
+    html += '<div class="mb-3"><h2 class="resume-section-title">PROJECTS</h2>';
+    projects.forEach((proj) => {
+      if (proj && (proj.name || proj.technologies)) {
+        html += `
+                    <div class="mb-2">
+                        <div class="flex justify-between items-baseline">
+                            <strong class="text-sm">${
+                              proj.name || "Project Name"
+                            }</strong>
+                            <span class="text-xs">${proj.date || ""}</span>
+                        </div>
+                        ${
+                          proj.technologies
+                            ? `<div class="text-xs italic">${proj.technologies}</div>`
+                            : ""
+                        }
+                        ${
+                          proj.link
+                            ? `<div class="text-xs text-blue-600">${proj.link}</div>`
+                            : ""
+                        }
+                        ${
+                          proj.description
+                            ? `<div class="text-xs mt-1">${proj.description
                                 .split("\n")
                                 .filter((line) => line.trim())
                                 .map((line) => `<div>• ${line.trim()}</div>`)
@@ -768,13 +924,37 @@ function importFromJSON(file) {
       // Clear existing
       elements.educationContainer.innerHTML = "";
       elements.experienceContainer.innerHTML = "";
+      elements.projectsContainer.innerHTML = "";
       elements.leadershipContainer.innerHTML = "";
       elements.skillsContainer.innerHTML = "";
       elements.languagesContainer.innerHTML = "";
       elements.interestsContainer.innerHTML = "";
 
       // Load data
-      resumeData = imported;
+      resumeData = {
+        personalInfo: {
+          fullName: "",
+          email: "",
+          phone: "",
+          location: "",
+          linkedin: "",
+          github: "",
+          ...imported.personalInfo,
+        },
+        summary: imported.summary || "",
+        education: Array.isArray(imported.education) ? imported.education : [],
+        experiences: Array.isArray(imported.experiences)
+          ? imported.experiences
+          : [],
+        projects: Array.isArray(imported.projects) ? imported.projects : [],
+        leadership: Array.isArray(imported.leadership)
+          ? imported.leadership
+          : [],
+        skills: Array.isArray(imported.skills) ? imported.skills : [],
+        languages: Array.isArray(imported.languages) ? imported.languages : [],
+        interests: Array.isArray(imported.interests) ? imported.interests : [],
+      };
+
       populateForm();
       updatePreview();
       saveToLocalStorage();
@@ -831,6 +1011,14 @@ if (elements.linkedin) {
   });
 }
 
+if (elements.github) {
+  elements.github.addEventListener("input", (e) => {
+    resumeData.personalInfo.github = e.target.value;
+    updatePreview();
+    debouncedSave();
+  });
+}
+
 if (elements.summary) {
   elements.summary.addEventListener("input", (e) => {
     resumeData.summary = e.target.value;
@@ -840,7 +1028,7 @@ if (elements.summary) {
   });
 }
 
-// Skills
+// Skills - Enter key and button
 if (elements.skillInput) {
   elements.skillInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -851,7 +1039,14 @@ if (elements.skillInput) {
   });
 }
 
-// Languages
+if (elements.addSkillBtn) {
+  elements.addSkillBtn.addEventListener("click", () => {
+    addTag(elements.skillInput.value, "skills");
+    elements.skillInput.value = "";
+  });
+}
+
+// Languages - Enter key and button
 if (elements.languageInput) {
   elements.languageInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -862,7 +1057,14 @@ if (elements.languageInput) {
   });
 }
 
-// Interests
+if (elements.addLanguageBtn) {
+  elements.addLanguageBtn.addEventListener("click", () => {
+    addTag(elements.languageInput.value, "languages");
+    elements.languageInput.value = "";
+  });
+}
+
+// Interests - Enter key and button
 if (elements.interestInput) {
   elements.interestInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -873,20 +1075,14 @@ if (elements.interestInput) {
   });
 }
 
-// Clear data button
-const clearDataBtn = $("clear-data");
-if (clearDataBtn) {
-  clearDataBtn.addEventListener("click", () => {
-    if (
-      confirm("Are you sure you want to clear all data? This cannot be undone.")
-    ) {
-      localStorage.clear();
-      location.reload();
-    }
+if (elements.addInterestBtn) {
+  elements.addInterestBtn.addEventListener("click", () => {
+    addTag(elements.interestInput.value, "interests");
+    elements.interestInput.value = "";
   });
 }
 
-// Add buttons
+// Add section buttons
 if (elements.addEducation) {
   elements.addEducation.addEventListener("click", () => addEducationEntry());
 }
@@ -895,10 +1091,15 @@ if (elements.addExperience) {
   elements.addExperience.addEventListener("click", () => addExperienceEntry());
 }
 
+if (elements.addProject) {
+  elements.addProject.addEventListener("click", () => addProjectEntry());
+}
+
 if (elements.addLeadership) {
   elements.addLeadership.addEventListener("click", () => addLeadershipEntry());
 }
 
+// Export/Import buttons
 if (elements.exportPdf) {
   elements.exportPdf.addEventListener("click", exportToPDF);
 }
@@ -913,6 +1114,20 @@ if (elements.importJson) {
     if (file) {
       importFromJSON(file);
       e.target.value = "";
+    }
+  });
+}
+
+// Clear all data button
+if (elements.clearData) {
+  elements.clearData.addEventListener("click", () => {
+    if (
+      confirm(
+        "Are you sure you want to clear all data? This action cannot be undone."
+      )
+    ) {
+      localStorage.clear();
+      location.reload();
     }
   });
 }

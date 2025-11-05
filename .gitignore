@@ -1,18 +1,80 @@
-Dependencies
+# Dependencies
+node_modules/
+package-lock.json
 
-/node_modules
+# Build outputs
+dist/output.css
 
-Build output
+# Environment variables
+.env
+.env.local
+.env.production
 
-/dist
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
 
-Logs
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
 
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-OS-specific
+# Temporary files
+*.tmp
+*.temp
+.cache/
 
-.DS_Store
-Thumbs.db
+# User-generated exports (optional - uncomment if you don't want to track exports)
+# exports/
+# *.json
+# *.pdf
+
+# System files
+.AppleDouble
+.LSOverride
+```
+
+---
+
+## 📋 Summary of All Changes
+
+### ✅ **New Features Added:**
+
+1. **Projects Section** - Added between Work Experience and Leadership
+2. **Add Buttons** for Skills, Languages, and Interests (in addition to Enter key)
+3. **LinkedIn & GitHub Links** in header (displayed inline with contact info)
+4. **GitHub URL field** in personal details
+5. **Clear All Data button** for easy reset
+
+### 📂 **Project Structure:**
+```
+resume-builder/
+├── src/
+│   ├── input.css
+│   └── app.js
+├── dist/
+│   └── output.css (auto-generated)
+├── index.html
+├── tailwind.config.js
+├── package.json
+├── .gitignore          ← NEW FILE
+└── README.md
