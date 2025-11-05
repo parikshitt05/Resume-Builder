@@ -37,22 +37,7 @@
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://parikshitt05.github.io/resume-builder)** _(Update with your actual URL)_
-
----
-
-## 📸 Screenshots
-
-<table>
-  <tr>
-    <td><img src="https://via.placeholder.com/400x300?text=Form+View" alt="Form View"></td>
-    <td><img src="https://via.placeholder.com/400x300?text=Preview" alt="Live Preview"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Form View</b></td>
-    <td align="center"><b>Live Preview</b></td>
-  </tr>
-</table>
+**[View Live Demo](https://parikshitt05.github.io/Resume-Builder)** _(Update with your actual URL)_
 
 ---
 
@@ -80,8 +65,8 @@
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/parikshitt05/resume-builder.git
-   cd resume-builder
+   git clone https://github.com/parikshitt05/Resume-Builder.git
+   cd Resume-Builder
    ```
 
 2. **Install dependencies**
@@ -493,8 +478,8 @@ SOFTWARE.
 If you found this project helpful:
 
 - ⭐ Star the repository
-- 🐛 Report bugs via [Issues](https://github.com/parikshitt05/resume-builder/issues)
-- 💡 Suggest features via [Discussions](https://github.com/parikshitt05/resume-builder/discussions)
+- 🐛 Report bugs via [Issues](https://github.com/parikshitt05/Resume-Builder/issues)
+- 💡 Suggest features via [Discussions](https://github.com/parikshitt05/Resume-Builder/discussions)
 
 ---
 
