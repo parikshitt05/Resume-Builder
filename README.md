@@ -37,7 +37,7 @@
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://parikshitt05.github.io/Resume-Builder)** _(Update with your actual URL)_
+**[View Live Demo](https://parikshitt05.github.io/Resume-Builder)**
 
 ---
 
