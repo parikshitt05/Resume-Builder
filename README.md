@@ -1,6 +1,3 @@
-Here is the updated `README.md` file with your specific information populated.
-
-````markdown
 # 📄 Interactive Resume Builder
 
 ![Resume Builder](https://img.shields.io/badge/Status-Active-success)
@@ -40,7 +37,22 @@ Here is the updated `README.md` file with your specific information populated.
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://github.com/parikshitt05/Resume-Builder)**
+**[View Live Demo](https://parikshitt05.github.io/resume-builder)** _(Update with your actual URL)_
+
+---
+
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td><img src="https://via.placeholder.com/400x300?text=Form+View" alt="Form View"></td>
+    <td><img src="https://via.placeholder.com/400x300?text=Preview" alt="Live Preview"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Form View</b></td>
+    <td align="center"><b>Live Preview</b></td>
+  </tr>
+</table>
 
 ---
 
@@ -66,79 +78,77 @@ Here is the updated `README.md` file with your specific information populated.
 ### **Quick Start**
 
 1. **Clone the repository**
+
    ```bash
-   git clone [https://github.com/parikshitt05/Resume-Builder.git](https://github.com/parikshitt05/Resume-Builder.git)
-   cd Resume-Builder
+   git clone https://github.com/parikshitt05/resume-builder.git
+   cd resume-builder
    ```
-````
 
-2.  **Install dependencies**
+2. **Install dependencies**
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
-3.  **Start development mode**
+3. **Start development mode**
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
-    This watches your CSS files and auto-compiles Tailwind.
+   This watches your CSS files and auto-compiles Tailwind.
 
-4.  **Open in browser**
+4. **Open in browser**
 
-    **Option A: Using Python (Recommended)**
+   **Option A: Using Python (Recommended)**
 
-    ```bash
-    # Python 3
-    python -m http.server 8000
-    # Then visit http://localhost:8000
-    ```
+   ```bash
+   # Python 3
+   python -m http.server 8000
+   # Then visit http://localhost:8000
+   ```
 
-    **Option B: Using VS Code Live Server**
+   **Option B: Using VS Code Live Server**
 
-    - Install "Live Server" extension
-    - Right-click `index.html` → "Open with Live Server"
+   - Install "Live Server" extension
+   - Right-click `index.html` → "Open with Live Server"
 
-    **Option C: Using Node.js http-server**
+   **Option C: Using Node.js http-server**
 
-    ```bash
-    # Install globally
-    npm install -g http-server
+   ```bash
+   # Install globally
+   npm install -g http-server
 
-    # Run
-    http-server
-    # Visit http://localhost:8080
-    ```
+   # Run
+   http-server
+   # Visit http://localhost:8080
+   ```
 
-5.  **Build for production**
-
-    ```bash
-    npm run build
-    ```
-
-    This creates a minified CSS file in `dist/output.css`
+5. **Build for production**
+   ```bash
+   npm run build
+   ```
+   This creates a minified CSS file in `dist/output.css`
 
 ---
 
 ## 📂 Project Structure
 
 ```
-Resume-Builder/
+resume-builder/
 │
 ├── src/
-│    ├── input.css         # Tailwind source CSS
-│   └── app.js            # Main JavaScript file
+│   ├── input.css          # Tailwind source CSS
+│   └── app.js             # Main JavaScript file
 │
 ├── dist/
-│   └── output.css        # Generated Tailwind CSS (auto-created)
+│   └── output.css         # Generated Tailwind CSS (auto-created)
 │
-├── index.html            # Main HTML file
-├── tailwind.config.js    # Tailwind configuration
-├── package.json          # Project dependencies
-├── .gitignore            # Git ignore file
-└── README.md             # This file
+├── index.html             # Main HTML file
+├── tailwind.config.js     # Tailwind configuration
+├── package.json           # Project dependencies
+├── .gitignore             # Git ignore file
+└── README.md              # This file
 ```
 
 ---
@@ -206,24 +216,24 @@ Write a brief 2-3 sentence overview (max 500 characters) highlighting:
 
 #### **Export to PDF**
 
-1.  Click **"📄 Export PDF"**
-2.  In the print dialog:
-    - Select "Save as PDF"
-    - Set margins to "None" or "Minimum"
-    - Enable "Background graphics"
-3.  Save your resume
+1. Click **"📄 Export PDF"**
+2. In the print dialog:
+   - Select "Save as PDF"
+   - Set margins to "None" or "Minimum"
+   - Enable "Background graphics"
+3. Save your resume
 
 #### **Save as JSON (Backup)**
 
-1.  Click **"💾 Save JSON"**
-2.  File downloads automatically
-3.  Store safely for future edits
+1. Click **"💾 Save JSON"**
+2. File downloads automatically
+3. Store safely for future edits
 
 #### **Import Previous Resume**
 
-1.  Click **"📂 Import JSON"**
-2.  Select your saved `.json` file
-3.  All data loads automatically
+1. Click **"📂 Import JSON"**
+2. Select your saved `.json` file
+3. All data loads automatically
 
 ---
 
@@ -278,7 +288,7 @@ Edit the `updatePreview()` function in `src/app.js` (around line 600) to customi
 In `src/input.css`:
 
 ```css
-@import url("[https://fonts.googleapis.com/css2?family=Your+Font&display=swap](https://fonts.googleapis.com/css2?family=Your+Font&display=swap)");
+@import url("https://fonts.googleapis.com/css2?family=Your+Font&display=swap");
 
 #resume-preview {
   font-family: "Your Font", serif;
@@ -299,22 +309,21 @@ In `src/input.css`:
 
 ### **Testing Accessibility**
 
-1.  **Keyboard Navigation:**
+1. **Keyboard Navigation:**
 
-    - Use `Tab` to move through form fields
-    - Use `Enter` to activate buttons
-    - All features should work without a mouse
+   - Use `Tab` to move through form fields
+   - Use `Enter` to activate buttons
+   - All features should work without a mouse
 
-2.  **Screen Reader:**
+2. **Screen Reader:**
 
-    - Windows: Use NVDA (free)
-    - Mac: Use VoiceOver (built-in)
-    - Test that all content is announced
+   - Windows: Use NVDA (free)
+   - Mac: Use VoiceOver (built-in)
+   - Test that all content is announced
 
-3.  **Color Contrast:**
-
-    - Use [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-    - Ensure text meets 4.5:1 ratio
+3. **Color Contrast:**
+   - Use [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+   - Ensure text meets 4.5:1 ratio
 
 ---
 
@@ -331,7 +340,7 @@ The resume builder works perfectly on:
 
 | Device  | Width          | Layout                     |
 | ------- | -------------- | -------------------------- |
-| Mobile  | \< 768px       | Single column (stacked)    |
+| Mobile  | < 768px        | Single column (stacked)    |
 | Tablet  | 768px - 1023px | Single column              |
 | Desktop | ≥ 1024px       | Two columns (side-by-side) |
 
@@ -358,9 +367,9 @@ npm run build
 
 **Solution:**
 
-1.  Check browser console (F12) for errors
-2.  Ensure `src/app.js` exists
-3.  Hard refresh: `Ctrl + Shift + R`
+1. Check browser console (F12) for errors
+2. Ensure `src/app.js` exists
+3. Hard refresh: `Ctrl + Shift + R`
 
 ### **Problem: Changes not showing**
 
@@ -385,9 +394,9 @@ location.reload()
 
 **Solution:**
 
-1.  Check browser allows localStorage
-2.  Clear cookies/cache if needed
-3.  Try incognito/private mode
+1. Check browser allows localStorage
+2. Clear cookies/cache if needed
+3. Try incognito/private mode
 
 ---
 
@@ -405,22 +414,22 @@ location.reload()
 
 ## 🤝 Contributing
 
-Contributions are welcome\! Here's how:
+Contributions are welcome! Here's how:
 
-1.  **Fork the repository**
-2.  **Create a feature branch**
-    ```bash
-    git checkout -b feature/amazing-feature
-    ```
-3.  **Commit your changes**
-    ```bash
-    git commit -m "Add amazing feature"
-    ```
-4.  **Push to branch**
-    ```bash
-    git push origin feature/amazing-feature
-    ```
-5.  **Open a Pull Request**
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Commit your changes**
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+4. **Push to branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open a Pull Request**
 
 ### **Contribution Guidelines**
 
@@ -438,7 +447,7 @@ This project is licensed under the **MIT License** - see below for details:
 ```
 MIT License
 
-Copyright (c) 2024 Parikshit Tamhane
+Copyright (c) 2024 [Your Name]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -450,8 +459,8 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT BIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -463,9 +472,9 @@ SOFTWARE.
 
 ## 👤 Author
 
-**Parikshit Tamhane**
+**Your Name**
 
-- GitHub: [@parikshitt05](https://www.google.com/search?q=https://github.com/parikshitt05)
+- GitHub: [@parikshitt05](https://github.com/parikshitt05)
 - LinkedIn: [Parikshit Tamhane](https://www.linkedin.com/in/parikshit-tamhane-link/)
 
 ---
@@ -484,10 +493,18 @@ SOFTWARE.
 If you found this project helpful:
 
 - ⭐ Star the repository
-- 🐛 Report bugs via [Issues](https://www.google.com/search?q=https://github.com/parikshitt05/Resume-Builder/issues)
-- 💡 Suggest features via [Discussions](https://www.google.com/search?q=https://github.com/parikshitt05/Resume-Builder/discussions)
+- 🐛 Report bugs via [Issues](https://github.com/parikshitt05/resume-builder/issues)
+- 💡 Suggest features via [Discussions](https://github.com/parikshitt05/resume-builder/discussions)
 
 ---
+
+## 📚 Resources
+
+### **Learning Resources**
+
+- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Web Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 
 ### **Tools Used**
 
@@ -499,30 +516,36 @@ If you found this project helpful:
 
 ## ❓ FAQ
 
-**Q: Is my data safe?** A: Yes\! All data is stored locally in your browser. Nothing is sent to any server.
+**Q: Is my data safe?**  
+A: Yes! All data is stored locally in your browser. Nothing is sent to any server.
 
-**Q: Can I use this offline?** A: Yes, after the first load, it works completely offline.
+**Q: Can I use this offline?**  
+A: Yes, after the first load, it works completely offline.
 
-**Q: Can I customize the resume design?** A: Yes\! Edit the CSS in `src/input.css` or modify the preview template in `app.js`.
+**Q: Can I customize the resume design?**  
+A: Yes! Edit the CSS in `src/input.css` or modify the preview template in `app.js`.
 
-**Q: Does it work on mobile?** A: Yes\! Fully responsive and works on all devices.
+**Q: Does it work on mobile?**  
+A: Yes! Fully responsive and works on all devices.
 
-**Q: Is it really free?** A: Absolutely\! Open-source and free forever.
+**Q: Is it really free?**  
+A: Absolutely! Open-source and free forever.
 
 ---
 
 ## 📈 Project Stats
 
----
-
-\<div align="center"\>
-
-### Made with ❤️ by Parikshit Tamhane
-
-\</div\>
+![GitHub stars](https://img.shields.io/github/stars/parikshitt05/resume-builder?style=social)
+![GitHub forks](https://img.shields.io/github/forks/parikshitt05/resume-builder?style=social)
+![GitHub issues](https://img.shields.io/github/issues/parikshitt05/resume-builder)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/parikshitt05/resume-builder)
 
 ---
 
-```
+<div align="center">
 
-```
+### Made with ❤️ by [Parikshit Tamhane]
+
+</div>
+
+---
